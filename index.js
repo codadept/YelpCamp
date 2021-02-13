@@ -3,7 +3,8 @@ const   express         = require('express'),
         methodOverride  = require('method-override'),
         path            = require('path'),
         mongoose        = require('mongoose'),
-        Campground      = require('./models/campground')
+        Campground      = require('./models/campground'),
+        ejsMate          = require('ejs-mate')
 
 mongoose.connect("mongodb://localhost:27017/yelp-camp",{
     useNewUrlParser:true,
@@ -17,6 +18,7 @@ db.once("open",()=>{
     console.log("Database connected")
 })
 
+app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs');
 app.set('views',path.join(__dirname,'views'));
 
