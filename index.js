@@ -28,6 +28,39 @@ app.get('/campgrounds', async (req,res)=>{
     res.render('campgrounds/index',{campgrounds})
 })
 
+app.get('/campgrounds/new', (req, res)=>{
+    res.render('campgrounds/new')
+})
+
+app.post('/campgrounds', async (req,res)=>{
+    const campground = new Campground(req.body.campground)
+    await campground.save()
+    res.redirect(`/campgrounds/${campground._id}`)
+})
+
+// KEEP THIS BELOW ELSE EVERY TIME YOU GO TO CAMPGROUND/SOMETHING, ONLY THIS WILL GET EXECUTED
+app.get('/campgrounds/:id', async (req, res)=>{
+    const campground = await Campground.findById(req.params.id)
+    res.render('campgrounds/show',{campground})
+    
+})
+
+app.get('/campgrounds/:id/edit', async (req,res)=>{
+    const campground = await Campground.findById(req.params.id)
+    res.render('campgrounds/edit',{campground})
+})
+
+app.put('/campgrounds/:id', async (req,res)=>{
+    const campground = await Campground.findByIdAndUpdate(req.params.id, {...req.body.campground},{new: true})
+    res.redirect(`/campgrounds/${campground._id}`)
+})
+
+app.delete('/campgrounds/:id', async (req, res)=>{
+    const {id} = req.params;
+    await Campground.findByIdAndDelete(id)
+    res.redirect('/campgrounds')
+})
+
 const PORT = 3000;
 app.listen(PORT,()=>{
     console.log('THE SERVER RUNNING ON PORT ', PORT)
