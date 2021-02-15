@@ -1,5 +1,3 @@
-const { func } = require('joi');
-
 const   mongoose    = require('mongoose'),
         Schema      = mongoose.Schema,
         Review      = require('./review')
