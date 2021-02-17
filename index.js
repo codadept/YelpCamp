@@ -102,7 +102,7 @@ app.use((err,req,res,next)=>{
     res.status(statusCode).render('error',{err})
 })
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT,()=>{
     console.log('THE SERVER RUNNING ON PORT ', PORT)
 })
