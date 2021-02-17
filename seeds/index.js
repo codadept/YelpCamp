@@ -21,7 +21,7 @@ const sample = (array) =>{
 
 const seedDb = async ()=>{
     await Campground.deleteMany({})
-    for(let i = 0; i< 50;i++){
+    for(let i = 0; i< 500;i++){
         const   random1000 = Math.floor(Math.random()*1000),
                 camp = new Campground({
                     author: '602c0a484a4b4618347c4013',                        
@@ -31,8 +31,8 @@ const seedDb = async ()=>{
                     price: Math.floor(Math.random()*3000)+5000,
                     geometry:{
                         "coordinates" : [
-                                -73.890007,
-                                40.855863
+                            cities[random1000].longitude,
+                            cities[random1000].latitude
                         ],
                         "type" : "Point"
                     },
